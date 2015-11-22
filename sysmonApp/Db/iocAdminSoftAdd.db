@@ -32,12 +32,17 @@ record(ai, "$(IOC,undefined):MEM_FREE_") {
   field(SCAN, "I/O Intr")
   field(DTYP, "IOC stats")
   field(INP,  "@free_bytes")
-  field(FLNK, "$(IOC,undefined):MEM_FREE_P")
+  field(FLNK, "$(IOC,undefined):MEM_FOUT_")
 }
 
 record(ai, "$(IOC,undefined):MEM_MAX_") {
   field(SCAN, "I/O Intr")
   field(DTYP, "IOC stats")
   field(INP, "@total_bytes")
-  field(FLNK, "$(IOC,undefined):MEM_FREE_P")
+  field(FLNK, "$(IOC,undefined):MEM_FOUT_")
+}
+
+record(fanout, "$(IOC, undefined):MEM_FOUT_") {
+  field(LNK1, "$(IOC,undefined):MEM_FREE_P")
+  field(LNK2, "$(IOC,undefined):MEM_USED_P")
 }
