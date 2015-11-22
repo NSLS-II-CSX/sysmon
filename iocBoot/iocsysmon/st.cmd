@@ -39,4 +39,3 @@ create_monitor_set("info_positions.req", 5 , "")
 create_monitor_set("info_settings.req", 15 , "")
 
 dbl > /cf-update/xf23id1-srv2.sysmon.dbl
-
