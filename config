@@ -23,7 +23,7 @@ USER=softioc
 #
 # If not set then the check is disabled
 #
-HOST=xf23id1-srv1
+HOST=xf23id1-ioc2
 
 # IOC executable name.  This is the command
 # given to procServ to start the IOC.
