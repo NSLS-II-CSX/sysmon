@@ -11,8 +11,9 @@ sysmon_registerRecordDeviceDriver(pdbbase)
 
 ## Load record instances
 
-dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=XF:23ID1-CT{IOC:SRV1}")
-dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=XF:23ID1-CT{IOC:SRV1}")
+dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=XF:23ID1-CT{IOC:SRV2}")
+dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=XF:23ID1-CT{IOC:SRV2}")
 
 iocInit()
 
+dbl > /cf-update/xf23id1-srv2.sysmon.dbl
