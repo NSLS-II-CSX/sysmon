@@ -10,7 +10,22 @@ record(calc, "$(IOC,undefined):MEM_FREE_P") {
   field(LOW,  "30")
   field(LLSV, "MAJOR")
   field(LSV, "MINOR")
-  info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV")
+  info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV HSV HHSV HIGH HIHI")
+}
+
+record(calc, "$(IOC,undefined):MEM_USED_P") {
+  field(INPA, "$(IOC,undefined):MEM_FREE_")
+  field(INPB, "$(IOC,undefined):MEM_MAX_") 
+  field(CALC, "(1-(A/B)) * 100")
+  field(EGU,  "byte")
+  field(PREC, "2")
+  field(HOPR, "100")
+  field(LOPR, "0")
+  field(HIHI, "60")
+  field(HIGH, "80")
+  field(HHSV, "MAJOR")
+  field(HSV, "MINOR")
+  info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV HSV HHSV HIGH HIHI")
 }
 
 record(ai, "$(IOC,undefined):MEM_FREE_") {
