@@ -2,7 +2,7 @@ record(calc, "$(IOC,undefined):MEM_FREE_P") {
   field(INPA, "$(IOC,undefined):MEM_FREE_")
   field(INPB, "$(IOC,undefined):MEM_MAX_") 
   field(CALC, "(A/B) * 100")
-  field(EGU,  "byte")
+  field(EGU,  "%")
   field(PREC, "2")
   field(HOPR, "100")
   field(LOPR, "0")
@@ -17,7 +17,7 @@ record(calc, "$(IOC,undefined):MEM_USED_P") {
   field(INPA, "$(IOC,undefined):MEM_FREE_")
   field(INPB, "$(IOC,undefined):MEM_MAX_") 
   field(CALC, "(1-(A/B)) * 100")
-  field(EGU,  "byte")
+  field(EGU,  "%")
   field(PREC, "2")
   field(HOPR, "100")
   field(LOPR, "0")
@@ -25,6 +25,14 @@ record(calc, "$(IOC,undefined):MEM_USED_P") {
   field(HIGH, "80")
   field(HHSV, "MAJOR")
   field(HSV, "MINOR")
+  info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV HSV HHSV HIGH HIHI")
+}
+
+record(calc, "$(IOC,undefined):MEM_USED_SYS") {
+  field(INPA, "$(IOC,undefined):MEM_FREE_")
+  field(INPB, "$(IOC,undefined):MEM_MAX_") 
+  field(CALC, "B-A")
+  field(EGU,  "bytes")
   info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV HSV HHSV HIGH HIHI")
 }
 
@@ -45,4 +53,5 @@ record(ai, "$(IOC,undefined):MEM_MAX_") {
 record(fanout, "$(IOC, undefined):MEM_FOUT_") {
   field(LNK1, "$(IOC,undefined):MEM_FREE_P")
   field(LNK2, "$(IOC,undefined):MEM_USED_P")
+  field(LNK3, "$(IOC,undefined):MEM_USED_SYS")
 }
