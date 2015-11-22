@@ -18,6 +18,7 @@ sysmon_DBD += base.dbd
 # Include dbd files from all support applications:
 sysmon_DBD += devIocStats.dbd
 sysmon_DBD += asSupport.dbd
+sysmon_DBD += system.dbd
 
 # Add all the support libraries needed by this IOC
 sysmon_LIBS += devIocStats
