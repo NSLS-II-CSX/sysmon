@@ -1,0 +1,28 @@
+record(calc, "$(IOC,undefined):MEM_FREE_P") {
+  field(INPA, "$(IOC,undefined):MEM_FREE_")
+  field(INPB, "$(IOC,undefined):MEM_MAX_") 
+  field(CALC, "(A/B) * 100")
+  field(EGU,  "byte")
+  field(PREC, "2")
+  field(HOPR, "100")
+  field(LOPR, "0")
+  field(LOLO, "20")
+  field(LOW,  "30")
+  field(LLSV, "MAJOR")
+  field(LSV, "MINOR")
+  info(autosaveFields_pass0, "HOPR LOPR LOW LOLO LSV LLSV")
+}
+
+record(ai, "$(IOC,undefined):MEM_FREE_") {
+  field(SCAN, "I/O Intr")
+  field(DTYP, "IOC stats")
+  field(INP,  "@free_bytes")
+  field(FLNK, "$(IOC,undefined):MEM_FREE_P")
+}
+
+record(ai, "$(IOC,undefined):MEM_MAX_") {
+  field(SCAN, "I/O Intr")
+  field(DTYP, "IOC stats")
+  field(INP, "@total_bytes")
+  field(FLNK, "$(IOC,undefined):MEM_FREE_P")
+}
