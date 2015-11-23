@@ -5,14 +5,18 @@
 
 < envPaths
 
+epicsEnvSet("BASENAME", "TEST")
+
 ## Register all support components
 dbLoadDatabase("../../dbd/sysmon.dbd",0,0)
 sysmon_registerRecordDeviceDriver(pdbbase) 
 
+diskMonitorDriverConfigure("PATH1", "/GPFS/xf23id")
+
 ## Load record instances
 
-dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=XF:23ID1-CT{IOC:SRV1}")
-dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=XF:23ID1-CT{IOC:SRV1}")
+dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=$(BASENAME)")
+dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=$(BASENAME)")
 
 system("install -m 777 -d $(TOP)/as/save") 
 system("install -m 777 -d $(TOP)/as/req")

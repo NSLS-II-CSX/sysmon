@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /epics/iocs/sysmon/iocBoot/iocsysmon && ./st.cmd
+cd iocBoot/iocsysmon && ./st.cmd
