@@ -12,6 +12,7 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 DB_INSTALLS += $(EPICS_BASE)/db/iocAdminSoft.db
 DB += iocAdminSoftAdd.db
+DB += diskMonitor.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

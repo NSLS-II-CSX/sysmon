@@ -1,0 +1,54 @@
+record(longin, "$(Sys)$(Dev)Val:Free-I"){
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISK_FREE")
+   field(SCAN, "I/O Intr")
+   field(FLNK, "$(Sys)$(Dev)Val:FreeTb-I")
+   field(EGU,  "Mb")
+}
+
+record(longin, "$(Sys)$(Dev)Val:Total-I"){
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISK_TOTAL")
+   field(SCAN, "I/O Intr")
+   field(FLNK, "$(Sys)$(Dev)Val:TotalTb-I")
+   field(EGU,  "Mb")
+}
+
+record(longin, "$(Sys)$(Dev)Val:Used-I"){
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISK_USED")
+   field(SCAN, "I/O Intr")
+   field(FLNK, "$(Sys)$(Dev)Val:UsedTb-I")
+   field(EGU,  "Mb")
+}
+
+record(calc, "$(Sys)$(Dev)Val:FreeTb-I"){
+	field(INPA, "$(Sys)$(Dev)Val:Free-I")
+	field(CALC, "A/1048576")
+	field(EGU,  "Tb")
+}
+
+record(calc, "$(Sys)$(Dev)Val:TotalTb-I"){
+	field(INPA, "$(Sys)$(Dev)Val:Total-I")
+	field(CALC, "A/1048576")
+	field(EGU,  "Tb")
+}
+
+record(calc, "$(Sys)$(Dev)Val:UsedTb-I"){
+	field(INPA, "$(Sys)$(Dev)Val:Used-I")
+	field(CALC, "A/1048576")
+	field(EGU,  "Tb")
+}
+
+record(ai, "$(Sys)$(Dev)Rate-RB"){
+	field(DTYP, "asynFloat64")
+	field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISK_UPDATE")
+	field(SCAN, "I/O Intr")
+}
+
+record(ao, "$(Sys)$(Dev)Rate-SP"){
+	field(DTYP, "asynFloat64")
+	field(PINI, "1")
+	field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISK_UPDATE")
+	info(autosaveFields_pass0, "VAL")
+}

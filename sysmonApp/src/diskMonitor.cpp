@@ -22,6 +22,8 @@
 #include <epicsEvent.h>
 #include <iocsh.h>
 
+#include <sys/statvfs.h>
+
 #include "diskMonitor.h"
 
 static const char *driverName = "diskMonitorDriver";
@@ -34,7 +36,7 @@ static const char *driverName = "diskMonitorDriver";
 diskMonitorDriver::diskMonitorDriver(const char *portName, const char *path) 
    : asynPortDriver(portName, 
                     1, /* maxAddr */ 
-                    0, //(int)NUM_SCOPE_PARAMS,
+                    (int)NUM_DISK_PARAMS,
                     asynInt32Mask | asynFloat64Mask | asynFloat64ArrayMask | asynEnumMask | asynDrvUserMask, /* Interface mask */
                     asynInt32Mask | asynFloat64Mask | asynFloat64ArrayMask | asynEnumMask,  /* Interrupt mask */
                     0, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
@@ -44,6 +46,15 @@ diskMonitorDriver::diskMonitorDriver(const char *portName, const char *path)
 {
   asynStatus status;
   const char *functionName = "diskMonitorDriver";
+
+  strncpy(fileSystemPath, path, 256);
+
+  createParam(P_DISK_FREE,       asynParamInt32,         &P_Disk_Free);
+  createParam(P_DISK_USED,       asynParamInt32,         &P_Disk_Used);
+  createParam(P_DISK_TOTAL,      asynParamInt32,         &P_Disk_Total);
+  createParam(P_DISK_UPDATE,     asynParamFloat64,       &P_Disk_Update);
+
+  setDoubleParam(P_Disk_Update, 10.0); // Set to 10 seconds
 
   eventId_ = epicsEventCreate(epicsEventEmpty);
   /* Create the thread that computes the waveforms in the background */
@@ -61,15 +72,31 @@ diskMonitorDriver::diskMonitorDriver(const char *portName, const char *path)
 void diskMonitorDriver::monitorTask(void){
 
   double pollTime = 10.0;
+  struct statvfs stats;
+  unsigned long total = 0;
+  unsigned long used = 0;
+  unsigned long free = 0;
 
   lock();
 
   while(1){
+    getDoubleParam(P_Disk_Update, &pollTime);
+
     unlock();
     epicsEventWaitWithTimeout(eventId_, pollTime);
     lock(); 
 
-    fprintf(stderr, "Ping ....\n");
+    if(!statvfs(fileSystemPath, &stats)){
+      total = stats.f_frsize * stats.f_blocks / (1024 * 1024);
+      free = stats.f_bfree * stats.f_bsize / (1024 * 1024);
+      used = total - free;
+    }
+
+    setIntegerParam(P_Disk_Total, total);
+    setIntegerParam(P_Disk_Used,  used);
+    setIntegerParam(P_Disk_Free,  free);
+
+    callParamCallbacks();
   }
 
   unlock(); // We should never get here

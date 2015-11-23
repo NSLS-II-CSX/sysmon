@@ -1,6 +1,11 @@
 
 #include "asynPortDriver.h"
 
+#define P_DISK_FREE                "DISK_FREE"
+#define P_DISK_USED                "DISK_USED"
+#define P_DISK_TOTAL               "DISK_TOTAL"
+#define P_DISK_UPDATE              "DISK_UPDATE"
+
 void monitorTask(void *drvPvt);
 
 class diskMonitorDriver : public asynPortDriver {
@@ -18,8 +23,17 @@ public:
   /* These are the methods that are new to this class */
   void monitorTask(void);
 
+protected:
+  int P_Disk_Free;
+#define FIRST_DISK_COMMAND P_Disk_Free
+  int P_Disk_Used;
+  int P_Disk_Total;
+  int P_Disk_Update;
+#define LAST_DISK_COMMAND P_Disk_Update
+
 private:
   epicsEventId eventId_;
+  char fileSystemPath[256];
 };
 
-
+#define NUM_DISK_PARAMS (&LAST_DISK_COMMAND - &FIRST_DISK_COMMAND + 1)

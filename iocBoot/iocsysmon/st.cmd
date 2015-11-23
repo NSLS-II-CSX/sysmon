@@ -18,6 +18,8 @@ diskMonitorDriverConfigure("PATH1", "/GPFS/xf23id")
 dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=$(BASENAME)")
 dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=$(BASENAME)")
 
+dbLoadRecords("$(TOP)/db/diskMonitor.db", "Sys=XF:23ID1-CT,Dev={IOC:SRV1-Vol:GPFS},PORT=PATH1,TIMEOUT=0,ADDR=0")
+
 system("install -m 777 -d $(TOP)/as/save") 
 system("install -m 777 -d $(TOP)/as/req")
 
