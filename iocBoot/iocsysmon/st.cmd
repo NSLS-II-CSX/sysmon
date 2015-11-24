@@ -5,20 +5,22 @@
 
 < envPaths
 
-epicsEnvSet("BASENAME", "TEST")
+epicsEnvSet("BASENAME", "XF:23ID1-CT{IOC:CA}")
 
 ## Register all support components
 dbLoadDatabase("../../dbd/sysmon.dbd",0,0)
 sysmon_registerRecordDeviceDriver(pdbbase) 
 
-diskMonitorDriverConfigure("PATH1", "/GPFS/xf23id")
+diskMonitorDriverConfigure("PATH1", "/DATA")
+diskMonitorDriverConfigure("PATH2", "/DATA2")
 
 ## Load record instances
 
 dbLoadRecords("$(TOP)/db/iocAdminSoft.db", "IOC=$(BASENAME)")
 dbLoadRecords("$(TOP)/db/iocAdminSoftAdd.db", "IOC=$(BASENAME)")
 
-dbLoadRecords("$(TOP)/db/diskMonitor.db", "Sys=XF:23ID1-CT,Dev={IOC:SRV1-Vol:GPFS},PORT=PATH1,TIMEOUT=0,ADDR=0")
+dbLoadRecords("$(TOP)/db/diskMonitor.db", "Sys=XF:23ID1-CT,Dev={IOC:CA-Vol:DATA},PORT=PATH1,TIMEOUT=0,ADDR=0")
+dbLoadRecords("$(TOP)/db/diskMonitor.db", "Sys=XF:23ID1-CT,Dev={IOC:CA-Vol:DATA2},PORT=PATH2,TIMEOUT=0,ADDR=0")
 
 system("install -m 777 -d $(TOP)/as/save") 
 system("install -m 777 -d $(TOP)/as/req")
