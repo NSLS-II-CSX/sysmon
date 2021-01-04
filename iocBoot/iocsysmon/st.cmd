@@ -30,7 +30,7 @@ set_pass0_restoreFile("info_settings.sav")
 set_pass1_restoreFile("info_settings.sav")
 
 asSetSubstitutions("WS=csxws1")
-asSetFilename("/epics/xf/23id/xf23id.acf")
+asSetFilename("/epics/common/xf23id.acf")
 
 iocInit()
 
