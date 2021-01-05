@@ -1,9 +1,19 @@
-db
-dbd
-as
-bin
-O.*
-*.swp
+.hg
+autosave/
+as/
+db/
+dbd/
+O.linux-x86_64/
+O.linux-x86_64-debug/
+O.Common/
 envPaths
-records.dbl
+bin/
+pmc/
+*.swp
+*.orig
+*.56K
+*.LOG
+*.MAP
+*.PMA
+*.TBL
 

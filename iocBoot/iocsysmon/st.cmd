@@ -4,6 +4,7 @@
 ## everywhere it appears in this file
 
 < envPaths
+< /epics/common/xf23id1-ioc3-netsetup.cmd
 
 ## Register all support components
 dbLoadDatabase("../../dbd/sysmon.dbd",0,0)
@@ -29,7 +30,8 @@ set_pass0_restoreFile("info_positions.sav")
 set_pass0_restoreFile("info_settings.sav")
 set_pass1_restoreFile("info_settings.sav")
 
-asSetFilename("/epics/xf/23id/xf23id.acf")
+asSetSubstitutions("WS=csxws1")
+asSetFilename("/epics/common/xf23id.acf")
 
 iocInit()
 
